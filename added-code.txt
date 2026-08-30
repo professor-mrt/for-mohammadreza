@@ -1,0 +1,888 @@
+﻿// import CategorySection from "@/components/ui/category-section/CategorySection";
+// import HeroSection from "@/components/ui/hero-section/HeroSection";
+import { heroMovie , movies } from "@/data/movies";
+import { series } from "@/data/series";
+import ContentHero from "@/features/content/content-hero/ContentHero";
+import ContentSection from "@/features/content/content-section/ContentSection";
+      <ContentHero content={heroMovie}/>
+      <ContentSection
+        title="┘ü█î┘ä┘àΓÇî┘ç╪º█î ┘à╪¡╪¿┘ê╪¿"
+        contents={movies}
+        href="/movies"
+      />
+      <ContentSection 
+        title="╪│╪▒█î╪º┘ä ┘ç╪º█î ┘à╪¡╪¿┘ê╪¿"
+        contents={series}
+        href="/series"/>
+import { notFound } from "next/navigation";
+import SeriesDetail from "@/features/series/series-detail/SeriesDetail";
+import { series } from "@/data/series";
+interface PageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+export default async function SeriesDetailPage({
+  params,
+}: PageProps) {
+  const { slug } = await params;
+  const currentSeries = series.find(
+    (item) => item.slug === slug
+  );
+  if (!currentSeries) {
+    notFound();
+  }
+  return (
+    <SeriesDetail series={currentSeries} />
+  );
+}
+  {
+    id: "comedy",
+    name: "┌⌐┘à╪»█î",
+    engName: "Comedy",
+    slug: "comedy",
+  },
+  {
+    id: "romance",
+    name: "╪╣╪º╪┤┘é╪º┘å┘ç",
+    engName: "Romance",
+    slug: "romance",
+  },
+const adminChoiceHero = "shawshank-redemption";
+    // Breaking Bad
+  {
+    id: "vince-gilligan",
+    name: "Vince Gilligan",
+    engName: "Vince Gilligan",
+  },
+  
+  {
+    id: "bryan-cranston",
+    name: "Bryan Cranston",
+    engName: "Bryan Cranston",
+  },
+  {
+    id: "aaron-paul",
+    name: "Aaron Paul",
+    engName: "Aaron Paul",
+  },
+  {
+    id: "anna-gunn",
+    name: "Anna Gunn",
+    engName: "Anna Gunn",
+  },
+  // Friends
+  {
+    id: "david-crane",
+    name: "David Crane",
+    engName: "David Crane",
+  },
+  {
+    id: "marta-kauffman",
+    name: "Marta Kauffman",
+    engName: "Marta Kauffman",
+  },
+  {
+    id: "jennifer-aniston",
+    name: "Jennifer Aniston",
+    engName: "Jennifer Aniston",
+  },
+  {
+    id: "courteney-cox",
+    name: "Courteney Cox",
+    engName: "Courteney Cox",
+  },
+  {
+    id: "lisa-kudrow",
+    name: "Lisa Kudrow",
+    engName: "Lisa Kudrow",
+  },
+  {
+    id: "matt-leblanc",
+    name: "Matt LeBlanc",
+    engName: "Matt LeBlanc",
+  },
+  {
+    id: "matthew-perry",
+    name: "Matthew Perry",
+    engName: "Matthew Perry",
+  },
+  {
+    id: "david-schwimmer",
+    name: "David Schwimmer",
+    engName: "David Schwimmer",
+  },
+  // How I Met Your Mother
+  {
+    id: "craig-thomas",
+    name: "Craig Thomas",
+    engName: "Craig Thomas",
+  },
+  {
+    id: "carter-bays",
+    name: "Carter Bays",
+    engName: "Carter Bays",
+  },
+  {
+    id: "josh-radnor",
+    name: "Josh Radnor",
+    engName: "Josh Radnor",
+  },
+  {
+    id: "jason-segel",
+    name: "Jason Segel",
+    engName: "Jason Segel",
+  },
+  {
+    id: "cobie-smulders",
+    name: "Cobie Smulders",
+    engName: "Cobie Smulders",
+  },
+  {
+    id: "neil-patrick-harris",
+    name: "Neil Patrick Harris",
+    engName: "Neil Patrick Harris",
+  },
+  {
+    id: "alyson-hannigan",
+    name: "Alyson Hannigan",
+    engName: "Alyson Hannigan",
+  },
+import {
+  AgeRating,
+  ContentStyle,
+  type Series,
+} from "@/features/content/types";
+import { people } from "./people";
+import { genres } from "./genres";
+const getPerson = (id: string) => {
+  const person = people.find((person) => person.id === id);
+  if (!person) {
+    throw new Error(`Person not found: ${id}`);
+  }
+  return person;
+};
+const getGenre = (slug: string) => {
+  const genre = genres.find((genre) => genre.slug === slug);
+  if (!genre) {
+    throw new Error(`Genre not found: ${slug}`);
+  }
+  return genre;
+};
+export const series: Series[] = [
+  {
+    type: "series",
+    slug: "breaking-bad",
+    title: "╪¿╪▒█î┌⌐█î┘å┌» ╪¿╪»",
+    engTitle: "Breaking Bad",
+    poster: "/poster/breaking bad.jpg",
+    imdb: 9.5,
+    rating: 9.8,
+    genres: [
+      getGenre("crime"),
+      getGenre("drama"),
+      getGenre("thriller"),
+    ],
+    year: 2008,
+    country: "╪ó┘à╪▒█î┌⌐╪º",
+    productionCountries: ["╪ó┘à╪▒█î┌⌐╪º"],
+    actors: [
+      getPerson("bryan-cranston"),
+      getPerson("aaron-paul"),
+      getPerson("anna-gunn"),
+    ],
+    description:
+      "█î┌⌐ ┘à╪╣┘ä┘à ╪┤█î┘à█î ╪»╪¿█î╪▒╪│╪¬╪º┘å ┌⌐┘ç ┘╛╪│ ╪º╪▓ ╪¬╪┤╪«█î╪╡ ╪¿█î┘à╪º╪▒█î╪î ╪¿╪▒╪º█î ╪¬╪ú┘à█î┘å ╪ó█î┘å╪»┘ç ╪«╪º┘å┘ê╪º╪»┘çΓÇî╪º╪┤ ┘ê╪º╪▒╪» ╪»┘å█î╪º█î ╪¬┘ê┘ä█î╪» ┘ê ╪¬╪¼╪º╪▒╪¬ ┘à┘ê╪º╪» ┘à╪«╪»╪▒ ┘à█îΓÇî╪┤┘ê╪».",
+    dubbed: true,
+    subtitle: true,
+    ageRating: AgeRating.Restricted,
+    style: ContentStyle.LiveAction,
+    seasons: 5,
+    episodes: 62,
+  },
+  {
+    type: "series",
+    slug: "friends",
+    title: "┘ü╪▒┘å╪»╪▓",
+    engTitle: "Friends",
+    poster: "/poster/friends.jpg",
+    imdb: 8.9,
+    rating: 9.4,
+    genres: [
+      getGenre("comedy"),
+      getGenre("romance"),
+    ],
+    year: 1994,
+    country: "╪ó┘à╪▒█î┌⌐╪º",
+    productionCountries: ["╪ó┘à╪▒█î┌⌐╪º"],
+    actors: [
+      getPerson("jennifer-aniston"),
+      getPerson("courteney-cox"),
+      getPerson("lisa-kudrow"),
+      getPerson("matt-leblanc"),
+      getPerson("matthew-perry"),
+      getPerson("david-schwimmer"),
+    ],
+    description:
+      "╪»╪º╪│╪¬╪º┘å ╪▓┘å╪»┌»█î ┘ê ╪▒┘ê╪º╪¿╪╖ ╪┤╪┤ ╪»┘ê╪│╪¬ ╪╡┘à█î┘à█î ┌⌐┘ç ╪»╪▒ ┘å█î┘ê█î┘ê╪▒┌⌐ ╪¿╪º ┘ü╪▒╪º╪▓ ┘ê ┘å╪┤█î╪¿ΓÇî┘ç╪º█î ╪▓┘å╪»┌»█î╪î ╪╣╪┤┘é╪î ┌⌐╪º╪▒ ┘ê ╪»┘ê╪│╪¬█î ╪▒┘ê╪¿┘çΓÇî╪▒┘ê ┘à█îΓÇî╪┤┘ê┘å╪».",
+    dubbed: true,
+    subtitle: true,
+    ageRating: AgeRating.ParentalGuidance,
+    style: ContentStyle.LiveAction,
+    seasons: 10,
+    episodes: 236,
+  },
+  {
+    type: "series",
+    slug: "how-i-met-your-mother",
+    title: "╪ó╪┤┘å╪º█î█î ╪¿╪º ┘à╪º╪»╪▒",
+    engTitle: "How I Met Your Mother",
+    poster: "/poster/how i met your mother.jpg",
+    imdb: 8.3,
+    rating: 9.0,
+    genres: [
+      getGenre("comedy"),
+      getGenre("romance"),
+    ],
+    year: 2005,
+    country: "╪ó┘à╪▒█î┌⌐╪º",
+    productionCountries: ["╪ó┘à╪▒█î┌⌐╪º"],
+    actors: [
+      getPerson("josh-radnor"),
+      getPerson("jason-segel"),
+      getPerson("cobie-smulders"),
+      getPerson("neil-patrick-harris"),
+      getPerson("alyson-hannigan"),
+    ],
+    description:
+      "╪¬╪» ┘à┘ê╪▓╪¿█î ╪»╪▒ ╪│╪º┘ä █▓█░█│█░ ╪»╪º╪│╪¬╪º┘å ╪▓┘å╪»┌»█î ╪«┘ê╪» ╪▒╪º ╪¿╪▒╪º█î ┘ü╪▒╪▓┘å╪»╪º┘å╪┤ ╪¬╪╣╪▒█î┘ü ┘à█îΓÇî┌⌐┘å╪» ┘ê ╪º╪▓ ╪º╪¬┘ü╪º┘é╪º╪¬█î ┘à█îΓÇî┌»┘ê█î╪» ┌⌐┘ç ╪│╪▒╪º┘å╪¼╪º┘à ╪º┘ê ╪▒╪º ╪¿┘ç ┘à╪º╪»╪▒╪┤╪º┘å ╪▒╪│╪º┘å╪».",
+    dubbed: true,
+    subtitle: true,
+    ageRating: AgeRating.ParentalGuidance,
+    style: ContentStyle.LiveAction,
+    seasons: 9,
+    episodes: 208,
+  },
+];
+const adminChoiceHero = "breaking-bad";
+export const heroSeries = series.find(
+  (item) => item.slug === adminChoiceHero
+)!;
+import type {
+  Movie,
+  Series,
+} from "@/features/content/types";
+import Styles from "./contentCard.module.css";
+  content: Movie | Series;
+export default function ContentCard({ content }: TypeProps) {
+    dubbed,
+    subtitle,
+  } = content;
+      href={
+        content.type === "movie"
+          ? `/movies/${content.slug}`
+          : `/series/${content.slug}`
+      }
+      className={Styles.contentCard}
+        {/* ┌ÿ╪º┘å╪▒┘ç╪º - ╪¿╪º┘ä╪º ╪│┘à╪¬ ╪▒╪º╪│╪¬ */}
+        {/* ╪º╪╖┘ä╪º╪╣╪º╪¬ ┘à╪«╪╡┘ê╪╡ ╪│╪▒█î╪º┘ä - ╪¿╪º┘ä╪º ╪│┘à╪¬ ┌å┘╛ */}
+        {content.type === "series" && (
+          <div className={Styles.seriesInfo}>
+            <span className={Styles.icon}>≡ƒô║</span>
+            <div className={Styles.seriesInfoText}>
+              <span>{content.seasons} ┘ü╪╡┘ä</span>
+              <span>{content.episodes} ┘é╪│┘à╪¬</span>
+            </div>
+          </div>
+        )}
+        {/* ╪º┘à╪¬█î╪º╪▓┘ç╪º - ┘╛╪º█î█î┘å ╪│┘à╪¬ ╪▒╪º╪│╪¬ */}
+        {/* ╪»┘ê╪¿┘ä┘ç ┘ê ╪▓█î╪▒┘å┘ê█î╪│ - ┘╛╪º█î█î┘å ╪│┘à╪¬ ┌å┘╛ */}
+            {dubbed && subtitle
+              ? "╪»┘ê╪¿┘ä┘ç + ╪▓█î╪▒┘å┘ê█î╪│"
+              : dubbed
+                ? "╪»┘ê╪¿┘ä┘ç"
+                : subtitle
+                  ? "╪▓█î╪▒┘å┘ê█î╪│"
+                  : "╪¿╪»┘ê┘å ╪»┘ê╪¿┘ä┘ç ┘ê ╪▓█î╪▒┘å┘ê█î╪│"}
+      <h3 className={Styles.title}>
+        {title}
+      </h3>
+      <h4 className={Styles.engTitle}>
+        {engTitle}
+      </h4>
+.contentCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+.contentCard:hover .poster {
+.contentCard:hover .overlay {
+.seriesInfo,
+/* ┌ÿ╪º┘å╪▒ - ╪¿╪º┘ä╪º ╪│┘à╪¬ ╪▒╪º╪│╪¬ */
+.contentCard:hover .genreList {
+/* ╪º╪╖┘ä╪º╪╣╪º╪¬ ╪│╪▒█î╪º┘ä - ╪¿╪º┘ä╪º ╪│┘à╪¬ ┌å┘╛ */
+.seriesInfo {
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 11px;
+}
+.seriesInfoText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+/* ╪º┘à╪¬█î╪º╪▓ - ┘╛╪º█î█î┘å ╪│┘à╪¬ ╪▒╪º╪│╪¬ */
+/* ╪»┘ê╪¿┘ä┘ç ┘ê ╪▓█î╪▒┘å┘ê█î╪│ - ┘╛╪º█î█î┘å ╪│┘à╪¬ ┌å┘╛ */
+.contentCard:hover .hiddenText {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 300;
+}
+.seriesInfo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 11px;
+}
+.seriesInfoText {
+  display: flex;
+  flex-direction: column;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    max-width 0.3s ease,
+    opacity 0.3s ease;
+}
+.contentCard:hover .seriesInfoText {
+  max-width: 100px;
+  opacity: 1;
+import Link from "next/link";
+import Image from "next/image";
+import type { Movie, Series } from "@/features/content/types";
+import Styles from "./contentHero.module.css";
+interface TypeProps {
+  content: Movie | Series;
+}
+export default function ContentHero({ content }: TypeProps) {
+  const {
+    poster,
+    title,
+    genres,
+    rating,
+    imdb,
+    description,
+    year,
+    actors,
+  } = content;
+  return (
+    <section className={Styles.heroSection}>
+      <div className={Styles.posterContainer}>
+        <Image
+          src={poster}
+          alt={title}
+          width={220}
+          height={330}
+          priority
+          className={Styles.poster}
+        />
+      </div>
+      <div className={Styles.content}>
+        <span className={Styles.badge}>
+          {content.type === "movie"
+            ? "≡ƒÄ¼ ┘ü█î┘ä┘à ┘ê█î┌ÿ┘ç"
+            : "≡ƒô║ ╪│╪▒█î╪º┘ä ┘ê█î┌ÿ┘ç"}
+        </span>
+        <h1 className={Styles.title}>
+          {title}
+        </h1>
+        <div className={Styles.rating}>
+          <span>Γ¡É {rating}</span>
+          <span>IMDb {imdb}</span>
+        </div>
+        <div className={Styles.metadata}>
+          <span className={Styles.metaItem}>
+            ≡ƒôà {year}
+          </span>
+          {content.type === "movie" ? (
+            <span className={Styles.metaItem}>
+              ≡ƒÄ¼ {content.director.name}
+            </span>
+          ) : (
+            <span className={Styles.metaItem}>
+              ≡ƒô║ {content.seasons} ┘ü╪╡┘ä ΓÇó {content.episodes} ┘é╪│┘à╪¬
+            </span>
+          )}
+        </div>
+        <div className={Styles.genres}>
+          {genres.map((genre) => (
+            <span
+              key={genre.slug}
+              className={Styles.genreBadge}
+            >
+              {genre.name}
+            </span>
+          ))}
+        </div>
+        {actors.length > 0 && (
+          <div className={Styles.actors}>
+            <strong>╪¿╪º╪▓█î┌»╪▒╪º┘å:</strong>{" "}
+            {actors
+              .map((actor) => actor.name)
+              .join(" ┘ê ")}
+          </div>
+        )}
+        <p className={Styles.description}>
+          {description}
+        </p>
+        <Link
+          href={
+            content.type === "movie"
+              ? `/movies/${content.slug}`
+              : `/series/${content.slug}`
+          }
+          className={Styles.button}
+        >
+          ┘à╪┤╪º┘ç╪»┘ç ╪¼╪▓╪ª█î╪º╪¬
+        </Link>
+      </div>
+    </section>
+  );
+}
+import Link from "next/link";
+import ContentCard from "../content-card/ContentCard";
+import type { Movie, Series } from "@/features/content/types";
+import Styles from "./contentSection.module.css";
+interface TypeProps {
+  title: string;
+  contents: (Movie | Series)[];
+  href: string;
+}
+export default function ContentSection({
+  title,
+  contents,
+  href,
+}: TypeProps) {
+  return (
+    <section className={Styles.section}>
+      <div className={Styles.header}>
+        <h2>{title}</h2>
+        <Link href={href}>
+          ┘à╪┤╪º┘ç╪»┘ç ┘ç┘à┘ç
+        </Link>
+      </div>
+      <div className={Styles.moviesContainer}>
+        {contents.map((item) => (
+          <ContentCard
+            key={item.slug}
+            content={item}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+  avatar?: string;
+import Image from "next/image";
+import Link from "next/link";
+import type { Series } from "@/features/content/types";
+import Styles from "./seriesDetail.module.css";
+interface TypeProps {
+  series: Series;
+}
+export default function SeriesDetail({ series }: TypeProps) {
+  const {
+    poster,
+    title,
+    engTitle,
+    genres,
+    rating,
+    imdb,
+    year,
+    country,
+    productionCountries,
+    actors,
+    description,
+    dubbed,
+    subtitle,
+    ageRating,
+    style,
+    seasons,
+    episodes,
+  } = series;
+  return (
+    <main className={Styles.container}>
+      {/* ╪¿╪«╪┤ ╪º╪╡┘ä█î */}
+      <section className={Styles.hero}>
+        {/* ┘╛┘ê╪│╪¬╪▒ */}
+        <div className={Styles.posterContainer}>
+          <Image
+            src={poster}
+            alt={title}
+            width={320}
+            height={480}
+            priority
+            className={Styles.poster}
+          />
+        </div>
+        {/* ╪º╪╖┘ä╪º╪╣╪º╪¬ */}
+        <div className={Styles.content}>
+          <div className={Styles.badges}>
+            <span className={Styles.typeBadge}>
+              ≡ƒô║ ╪│╪▒█î╪º┘ä
+            </span>
+            {style === "animation" && (
+              <span className={Styles.animationBadge}>
+                ≡ƒÄ¿ ╪º┘å█î┘à█î╪┤┘å
+              </span>
+            )}
+          </div>
+          <h1 className={Styles.title}>
+            {title}
+          </h1>
+          <p className={Styles.engTitle}>
+            {engTitle}
+          </p>
+          {/* ╪º┘à╪¬█î╪º╪▓╪º╪¬ */}
+          <div className={Styles.ratings}>
+            <div className={Styles.rating}>
+              <span>Γ¡É</span>
+              <strong>{rating}</strong>
+              <small>╪º┘à╪¬█î╪º╪▓ ┌⌐╪º╪▒╪¿╪▒╪º┘å</small>
+            </div>
+            <div className={Styles.rating}>
+              <span>IMDb</span>
+              <strong>{imdb}</strong>
+              <small>IMDb</small>
+            </div>
+          </div>
+          {/* ╪º╪╖┘ä╪º╪╣╪º╪¬ ╪│╪▒█î╪º┘ä */}
+          <div className={Styles.seriesInfo}>
+            <div className={Styles.infoItem}>
+              <span className={Styles.infoIcon}>≡ƒô║</span>
+              <div>
+                <small>┘ü╪╡┘äΓÇî┘ç╪º</small>
+                <strong>{seasons} ┘ü╪╡┘ä</strong>
+              </div>
+            </div>
+            <div className={Styles.infoItem}>
+              <span className={Styles.infoIcon}>≡ƒÄ₧∩╕Å</span>
+              <div>
+                <small>┘é╪│┘à╪¬ΓÇî┘ç╪º</small>
+                <strong>{episodes} ┘é╪│┘à╪¬</strong>
+              </div>
+            </div>
+            <div className={Styles.infoItem}>
+              <span className={Styles.infoIcon}>≡ƒôà</span>
+              <div>
+                <small>╪│╪º┘ä ╪º┘å╪¬╪┤╪º╪▒</small>
+                <strong>{year}</strong>
+              </div>
+            </div>
+          </div>
+          {/* ┌ÿ╪º┘å╪▒┘ç╪º */}
+          <div className={Styles.genres}>
+            {genres.map((genre) => (
+              <Link
+                key={genre.slug}
+                href={`/genres/${genre.slug}`}
+                className={Styles.genre}
+              >
+                {genre.name}
+              </Link>
+            ))}
+          </div>
+          {/* ╪¬┘ê╪╢█î╪¡╪º╪¬ */}
+          <p className={Styles.description}>
+            {description}
+          </p>
+          {/* ╪▓╪¿╪º┘å */}
+          <div className={Styles.languages}>
+            {dubbed && (
+              <span>≡ƒÄÖ∩╕Å ╪»┘ê╪¿┘ä┘ç</span>
+            )}
+            {subtitle && (
+              <span>≡ƒÆ¼ ╪▓█î╪▒┘å┘ê█î╪│</span>
+            )}
+          </div>
+        </div>
+      </section>
+      {/* ╪º╪╖┘ä╪º╪╣╪º╪¬ ╪¬┌⌐┘à█î┘ä█î */}
+      <section className={Styles.details}>
+        <div className={Styles.detailBox}>
+          <span>≡ƒîì ┌⌐╪┤┘ê╪▒ ╪¬┘ê┘ä█î╪»</span>
+          <strong>{country}</strong>
+        </div>
+        <div className={Styles.detailBox}>
+          <span>≡ƒÄ¼ ┌⌐╪┤┘ê╪▒┘ç╪º█î ╪¬┘ê┘ä█î╪»┌⌐┘å┘å╪»┘ç</span>
+          <strong>
+            {productionCountries.join("╪î ")}
+          </strong>
+        </div>
+        <div className={Styles.detailBox}>
+          <span>≡ƒö₧ ╪▒╪»┘ç ╪│┘å█î</span>
+          <strong>{ageRating}</strong>
+        </div>
+      </section>
+      {/* ╪¿╪º╪▓█î┌»╪▒╪º┘å */}
+      <section className={Styles.cast}>
+        <div className={Styles.sectionHeader}>
+          <h2>╪¿╪º╪▓█î┌»╪▒╪º┘å</h2>
+        </div>
+        <div className={Styles.actors}>
+          {actors.map((actor) => (
+            <div
+              key={actor.id}
+              className={Styles.actor}
+            >
+              <div className={Styles.actorAvatar}>
+                {actor.name.charAt(0)}
+              </div>
+              <span>{actor.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+.container {
+  width: min(1200px, 92%);
+  margin: 50px auto 80px;
+}
+/* HERO */
+.hero {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 45px;
+  padding: 35px;
+  border-radius: 24px;
+  background: var(--card-background);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+}
+.posterContainer {
+  width: 320px;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 18px;
+}
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.posterContainer:hover .poster {
+  transform: scale(1.04);
+}
+/* CONTENT */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+.typeBadge,
+.animationBadge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  background: rgba(120, 120, 120, 0.15);
+}
+.title {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+}
+.engTitle {
+  margin: 5px 0 25px;
+  font-size: 18px;
+  opacity: 0.55;
+}
+/* RATINGS */
+.ratings {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(120, 120, 120, 0.12);
+}
+.rating strong {
+  font-size: 18px;
+}
+.rating small {
+  opacity: 0.5;
+}
+/* SERIES INFO */
+.seriesInfo {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.infoItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(120, 120, 120, 0.1);
+}
+.infoIcon {
+  font-size: 22px;
+}
+.infoItem div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.infoItem small {
+  opacity: 0.5;
+  font-size: 11px;
+}
+.infoItem strong {
+  font-size: 14px;
+}
+/* GENRES */
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.genre {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: inherit;
+  text-decoration: none;
+  background: rgba(120, 120, 120, 0.12);
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+.genre:hover {
+  transform: translateY(-2px);
+}
+/* DESCRIPTION */
+.description {
+  max-width: 750px;
+  line-height: 2;
+  opacity: 0.75;
+  font-size: 14px;
+}
+/* LANGUAGES */
+.languages {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.languages span {
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(120, 120, 120, 0.12);
+  font-size: 12px;
+}
+/* DETAILS */
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+.detailBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--card-background);
+}
+.detailBox span {
+  font-size: 12px;
+  opacity: 0.5;
+}
+.detailBox strong {
+  font-size: 14px;
+}
+/* CAST */
+.cast {
+  margin-top: 45px;
+}
+.sectionHeader {
+  margin-bottom: 20px;
+}
+.sectionHeader h2 {
+  margin: 0;
+  font-size: 24px;
+}
+.actors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.actor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  background: var(--card-background);
+}
+.actorAvatar {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(120, 120, 120, 0.2);
+  font-weight: 600;
+}
+.actor span {
+  font-size: 13px;
+}
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .posterContainer {
+    width: 240px;
+    height: 360px;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .seriesInfo {
+    flex-direction: column;
+  }
+  .details {
+    grid-template-columns: 1fr;
+  }
+}
