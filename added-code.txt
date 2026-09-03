@@ -886,3 +886,514 @@ export default function SeriesDetail({ series }: TypeProps) {
     grid-template-columns: 1fr;
   }
 }
+
+
+
+/////////////////////////////////////////
+import type { HTMLAttributes } from "react";
+import Styles from "./badge.module.css";
+interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+  variant?: "primary" | "secondary";
+}
+export default function Badge({
+  variant = "primary",
+  className = "",
+  children,
+  ...props
+}: BadgeProps) {
+  return (
+    <span
+      className={`${Styles.badge} ${Styles[variant]} ${className}`}
+      {...props}
+    >
+      {children}
+    </span>
+  );
+}
+// interface ContentBadgesProps {
+//   type: "movie" | "series";
+//   style: "live-action" | "animation";
+// }
+// export default function ContentBadges({
+//   type,
+//   style,
+// }: ContentBadgesProps) {
+//   return (
+//     <div className={Styles.badges}>
+//       <span className={Styles.typeBadge}>
+//         {type === "movie" ? "≡ƒÄ¼ ┘ü█î┘ä┘à" : "≡ƒô║ ╪│╪▒█î╪º┘ä"}
+//       </span>
+//       {style === "animation" && (
+//         <span className={Styles.animationBadge}>
+//           ≡ƒÄ¿ ╪º┘å█î┘à█î╪┤┘å
+//         </span>
+//       )}
+//     </div>
+//   );
+// }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.primary {
+  background: var(--primary);
+  color: #fff;
+}
+.secondary {
+  background: var(--surface-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+import Link from "next/link";
+import Styles from "./genreLink.module.css";
+interface GenreLinkProps {
+  name: string;
+  slug: string;
+}
+export default function GenreLink({ name, slug }: GenreLinkProps) {
+  return (
+    <Link
+      href={`/genres/${slug}`}
+      className={Styles.genre}
+    >
+      {name}
+    </Link>
+  );
+}
+.genre {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.genre:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+import Badge from "@/components/ui/badge/Badge";
+import type { Movie, Series } from "@/features/content/types";
+interface ContentBadgesProps {
+  content: Movie | Series;
+}
+export default function ContentBadges({
+  content,
+}: ContentBadgesProps) {
+  return (
+    <div>
+      <Badge variant="primary">
+        {content.type === "movie" ? "≡ƒÄ¼ ┘ü█î┘ä┘à" : "≡ƒô║ ╪│╪▒█î╪º┘ä"}
+      </Badge>
+      {content.style === "animation" && (
+        <Badge variant="secondary">
+          ≡ƒÄ¿ ╪º┘å█î┘à█î╪┤┘å
+        </Badge>
+      )}
+    </div>
+  );
+}
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+import type { Genre } from "@/features/genres/types"
+import GenreLink from "@/components/ui/genre/GenreLink";
+import Styles from "./detailGenre.module.css";
+interface Genres {
+    genres: Genre[] ;
+}
+export default function DetailGenre({ genres }: Genres) {
+  return (
+    <div className={Styles.genres}>
+      {genres.map((genre:Genre) => (
+        <GenreLink
+          key={genre.slug}
+          name={genre.name}
+          slug={genre.slug}
+        />
+      ))}
+    </div>
+  );
+}
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+import Styles from "./detailRating.module.css";
+interface DetailRatingProps {
+  rating: number;
+  imdb: number;
+}
+export default function DetailRating({
+  rating,
+  imdb,
+}: DetailRatingProps) {
+  return (
+    <div className={Styles.ratings}>
+      <div className={Styles.rating}>
+        <span>Γ¡É</span>
+        <strong>{rating}</strong>
+        <small>╪º┘à╪¬█î╪º╪▓ ┌⌐╪º╪▒╪¿╪▒╪º┘å</small>
+      </div>
+      <div className={Styles.rating}>
+        <span>IMDb</span>
+        <strong>{imdb}</strong>
+        <small>IMDb</small>
+      </div>
+    </div>
+  );
+}
+import type { Movie, Series } from "@/features/content/types";
+import Styles from "./detailInfo.module.css";
+interface DetailInfoProps {
+  content: Movie | Series;
+}
+export default function DetailInfo({ content }: DetailInfoProps) {
+  return (
+    <div className={Styles.info}>
+      <div className={Styles.infoItem}>
+        <span className={Styles.infoIcon}>≡ƒôà</span>
+        <div>
+          <small>╪│╪º┘ä ╪º┘å╪¬╪┤╪º╪▒</small>
+          <strong>{content.year}</strong>
+        </div>
+      </div>
+      {content.type === "movie" ? (
+        <div className={Styles.infoItem}>
+          <span className={Styles.infoIcon}>ΓÅ▒∩╕Å</span>
+          <div>
+            <small>┘à╪»╪¬ ╪▓┘à╪º┘å</small>
+            <strong>{content.duration}</strong>
+          </div>
+        </div>
+      ) : (
+        <div className={Styles.infoItem}>
+          <span className={Styles.infoIcon}>≡ƒÄ¼</span>
+          <div>
+            <small>╪¬╪╣╪»╪º╪» ┘é╪│┘à╪¬</small>
+            <strong>{content.episodes} ┘é╪│┘à╪¬</strong>
+          </div>
+        </div>
+      )}
+      {content.type === "series" && (
+        <div className={Styles.infoItem}>
+          <span className={Styles.infoIcon}>≡ƒô║</span>
+          <div>
+            <small>╪¬╪╣╪»╪º╪» ┘ü╪╡┘ä</small>
+            <strong>{content.seasons} ┘ü╪╡┘ä</strong>
+          </div>
+        </div>
+      )}
+      <div className={Styles.infoItem}>
+        <span className={Styles.infoIcon}>≡ƒîì</span>
+        <div>
+          <small>┌⌐╪┤┘ê╪▒</small>
+          <strong>{content.country}</strong>
+        </div>
+      </div>
+    </div>
+  );
+}
+.info {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.infoItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+}
+.infoIcon {
+  font-size: 22px;
+}
+.infoItem div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.infoItem small {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.infoItem strong {
+  font-size: 14px;
+}
+.ratings {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+}
+.rating strong {
+  font-size: 18px;
+}
+.rating small {
+  color: var(--text-secondary);
+}
+import Styles from "./detailTitle.module.css";
+interface DetailTitleProps {
+  title: string;
+  engTitle: string;
+}
+export default function DetailTitle({
+  title,
+  engTitle,
+}: DetailTitleProps) {
+  return (
+    <>
+      <h1 className={Styles.title}>{title}</h1>
+      <p className={Styles.engTitle}>{engTitle}</p>
+    </>
+  );
+}
+.title {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.engTitle {
+  margin: 0 0 25px;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+import ContentBadges from "@/features/content/content-detail/detail-badges/ContentBadges";
+import DetailTitle from "@/features/content/content-detail/detail-title/DetailTitle";
+import DetailRating from "@/features/content/content-detail/detail-rating/DetailRating";
+import DetailInfo from "@/features/content/content-detail/detail-rating/detail-info/DetailInfo";
+import DetailGenre from "@/features/content/content-detail/detail-genre/DetailGenre";
+export default function MovieDetaile({ movie }: TypeProps) {
+          <ContentBadges content={movie}/>
+          <DetailTitle 
+            title={title}
+            engTitle={engTitle}
+          />
+          <DetailRating
+            rating={rating}
+            imdb={imdb}
+          />
+          <DetailInfo content={movie} />
+          <DetailGenre genres={genres}/>
+      
+  width: 320px;
+  height: 480px;
+/* .title {
+} */
+/* .movieInfo {
+} */
+/* .genres {
+} */
+/* .genre {
+} */
+/* .genre:hover {
+} */
+import ContentBadges from "@/features/content/content-detail/detail-badges/ContentBadges";
+import DetailTitle from "@/features/content/content-detail/detail-title/DetailTitle";
+import DetailRating from "@/features/content/content-detail/detail-rating/DetailRating";
+import DetailInfo from "@/features/content/content-detail/detail-rating/detail-info/DetailInfo";
+import DetailGenre from "@/features/content/content-detail/detail-genre/DetailGenre";
+// import Badge from "@/components/ui/badge/Badge";
+    type,
+          <ContentBadges content={series}/>
+          <DetailTitle 
+            title={title}
+            engTitle={engTitle}
+          />
+          {/* ╪º┘à╪¬█î╪º╪▓╪º╪¬ *************/}
+          <DetailRating
+            rating={rating}
+            imdb={imdb}
+          />
+          <DetailInfo content={series} />
+          <DetailGenre genres={genres}/>
+/* =========================
+   Hero
+========================= */
+  background: var(--surface);
+  border: 1px solid var(--border);
+/* =========================
+   Poster
+========================= */
+/* =========================
+   Content
+========================= */
+/* =========================
+   Badges
+========================= */
+/* =========================
+   Title
+========================= */
+/* =========================
+   Ratings
+========================= */
+/* =========================
+   Series Info
+========================= */
+/* 
+  gap: 15px;
+  min-width: 130px;
+  padding: 12px 15px;
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 20px;
+  color: var(--text-secondary);
+  color: var(--text);
+} */
+/* =========================
+   Genres
+========================= */
+/* .genres {
+  margin-bottom: 22px;
+  background: var(--surface-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+} */
+/* =========================
+   Description
+========================= */
+  margin-bottom: 22px;
+  color: var(--text-secondary);
+  font-size: 15px;
+/* =========================
+   Languages
+========================= */
+  flex-wrap: wrap;
+  background: var(--surface-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+/* =========================
+   Details
+========================= */
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text-secondary);
+  color: var(--text);
+/* =========================
+   Cast
+========================= */
+  margin-top: 40px;
+  color: var(--text);
+  font-weight: 700;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  flex-direction: column;
+  padding: 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+.actor:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+.actorAvatar {
+  width: 60px;
+  height: 60px;
+  background: var(--surface-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 900px) {
+    grid-template-columns: 240px 1fr;
+    gap: 30px;
+    padding: 25px;
+  }
+  .posterContainer {
+    width: 240px;
+    height: 360px;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .seriesInfo {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 700px) {
+  .container {
+    width: 94%;
+    margin: 30px auto 60px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  .content {
+    justify-content: flex-start;
+  }
+    font-size: 27px;
+  .ratings {
+    gap: 20px;
+}
+@media (max-width: 450px) {
+  .hero {
+    padding: 15px;
+  }
+  .posterContainer {
+    width: 200px;
+    height: 300px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .seriesInfo {
+    flex-direction: column;
+  }
+  .infoItem {
+    width: 100%;
+  }
+  .ratings {
+    flex-wrap: wrap;
+  }
+
