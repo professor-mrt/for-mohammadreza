@@ -1,4 +1,8 @@
-﻿// import CategorySection from "@/components/ui/category-section/CategorySection";
+﻿
+
+
+///////////////////////////////////////// step 1
+// import CategorySection from "@/components/ui/category-section/CategorySection";
 // import HeroSection from "@/components/ui/hero-section/HeroSection";
 import { heroMovie , movies } from "@/data/movies";
 import { series } from "@/data/series";
@@ -889,7 +893,29 @@ export default function SeriesDetail({ series }: TypeProps) {
 
 
 
-/////////////////////////////////////////
+///////////////////////////////////////// step 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import type { HTMLAttributes } from "react";
 import Styles from "./badge.module.css";
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
